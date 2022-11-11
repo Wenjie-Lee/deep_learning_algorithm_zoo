@@ -20,17 +20,17 @@ class PAM_Module(nn.Module):
         self.query_conv = nn.Conv2d(in_channels=in_dim, out_channels=in_dim//8, kernel_size=1)
         self.key_conv = nn.Conv2d(in_channels=in_dim, out_channels=in_dim//8, kernel_size=1)
         self.value_conv = nn.Conv2d(in_channels=in_dim, out_channels=in_dim, kernel_size=1)
-        self.gamma = nn.Parameter(torch.zeros(1))  # α尺度系数初始化为0，并逐渐地学习分配到更大的权重
+        self.gamma = nn.parameter.Parameter(torch.zeros(1))  # α尺度系数初始化为0，并逐渐地学习分配到更大的权重
  
         self.softmax = nn.Softmax(dim=-1)  # 对每一行进行softmax
 
     def forward(self, x):
         """
             inputs :
-                x : input feature maps( B × C × H × W)
+                x : input feature maps( B x C x H x W)
             returns :
                 out : attention value + input feature
-                attention: B × (H×W) × (H×W)
+                attention: B x (HxW) x (HxW)
         """
         b, c, h, w = x.size()
         # B -> (N,C,HW) -> (N,HW,C)

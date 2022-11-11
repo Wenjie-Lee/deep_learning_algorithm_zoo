@@ -30,7 +30,7 @@ class ChannelAttention(nn.Module):
         self.fc = nn.Sequential(
             # replace Linear with 1x1 Conv
             nn.Conv2d(channel, channel // reduction, 1, bias=False), 
-            nn.LayerNorm(channel // reduction),     # 后添加的
+            nn.BatchNorm2d(channel // reduction),     # 后添加的
             nn.ReLU(),
             nn.Conv2d(channel // reduction, channel, 1, bias=False)
         )
