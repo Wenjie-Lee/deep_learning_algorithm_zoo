@@ -27,6 +27,7 @@ class SELayer(nn.Module):
         self.fc = nn.Sequential(
             # nn.Linear(channel, channel // reduction, bias=False),
             nn.Conv2d(channel, channel // reduction, 1, bias=False),
+            nn.Dropout2d(p=0.1),        # 模拟Dropout, 丢失任意整个channel, 原文没有这一步
             nn.ReLU(inplace=True),
             # nn.Linear(channel // reduction, channel, bias=False),
             nn.Conv2d(channel // reduction, channel, 1, bias=False),
